@@ -3,4 +3,5 @@ node_modules/
 TODO
 .env
 llama.log
-dist/
+dist/*
+!dist/index.js
