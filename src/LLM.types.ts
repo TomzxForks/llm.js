@@ -135,6 +135,7 @@ export interface Usage extends InputOutputTokens {
 export interface Response {
     service: ServiceName;
     content: string;
+    data: any;
     options: Options;
     messages: Message[];
     thinking?: string;

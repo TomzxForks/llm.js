@@ -1833,6 +1833,7 @@ var LLM = function() {
         service: this.service,
         options
       };
+      response.data = data2;
       const tokenUsage = this.parseTokenUsage(data2);
       if (tokenUsage) {
         response.usage = this.parseUsage(tokenUsage);

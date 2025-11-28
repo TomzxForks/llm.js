@@ -13,7 +13,7 @@ import type {
 
 /**
  * LLM Base Class
- * 
+ *
  * @category LLMs
  */
 export default class LLM {
@@ -138,7 +138,7 @@ export default class LLM {
         return await this.send(options);
     }
 
-    abort() { 
+    abort() {
         if (this.abortController) {
             this.abortController.abort();
         }
@@ -198,6 +198,8 @@ export default class LLM {
             service: this.service,
             options,
         } as Response;
+
+        response.data = data;
 
         const tokenUsage = this.parseTokenUsage(data);
         if (tokenUsage) {
