@@ -178,7 +178,11 @@ export default class LLM {
 
         try {
             const data = await response.json();
-            if (this.extended) return this.extendedResponse(data, vanillaOptions);
+            const headers: Record<string, string> = {};
+            response.headers.forEach((value, key) => {
+                headers[key] = value;
+            });
+            if (this.extended) return this.extendedResponse(data, vanillaOptions, headers);
             return this.response(data);
         } finally {
             this.abortController = null;
@@ -193,12 +197,13 @@ export default class LLM {
         return content;
     }
 
-    protected extendedResponse(data: any, options: Options): Response {
+    protected extendedResponse(data: any, options: Options, headers: Record<string, string>): Response {
         const response = {
             service: this.service,
             options,
         } as Response;
 
+        response.headers = headers;
         response.data = data;
 
         const tokenUsage = this.parseTokenUsage(data);

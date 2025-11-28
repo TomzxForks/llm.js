@@ -1816,7 +1816,11 @@ var LLM = function() {
       }
       try {
         const data2 = await response.json();
-        if (this.extended) return this.extendedResponse(data2, vanillaOptions);
+        const headers = {};
+        response.headers.forEach((value, key) => {
+          headers[key] = value;
+        });
+        if (this.extended) return this.extendedResponse(data2, vanillaOptions, headers);
         return this.response(data2);
       } finally {
         this.abortController = null;
@@ -1828,11 +1832,12 @@ var LLM = function() {
       if (content) this.assistant(content);
       return content;
     }
-    extendedResponse(data2, options) {
+    extendedResponse(data2, options, headers) {
       const response = {
         service: this.service,
         options
       };
+      response.headers = headers;
       response.data = data2;
       const tokenUsage = this.parseTokenUsage(data2);
       if (tokenUsage) {
