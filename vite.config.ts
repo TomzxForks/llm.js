@@ -45,6 +45,7 @@ export default defineConfig({
         globals: {}
       }
     },
+    minify: false,
     sourcemap: true,
     // Generate type declarations
     emptyOutDir: true,
